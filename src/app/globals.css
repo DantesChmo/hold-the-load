@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jb), ui-monospace, Menlo, monospace;
+}
+
+@theme {
+  --color-bg: #080c16;
+  --color-stage: #0a101d;
+  --color-panel: #0f1626;
+  --color-panel2: #151e33;
+  --color-node: #121a2d;
+  --color-node-crit: #2a1320;
+  --color-line: #22304d;
+  --color-ink: #dbe4f5;
+  --color-dim: #7f8fb0;
+  --color-accent: #4cc9f0;
+  --color-ok: #3ddc97;
+  --color-warn: #ffd166;
+  --color-bad: #ff4d6d;
+  --color-write: #ffb347;
+  --color-stat: #7aa2ff;
+
+  --animate-shake: shake 0.14s linear infinite;
+  --animate-hurt: hurt 0.5s ease-in-out infinite alternate;
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(-1.5px); }
+    50% { transform: translateX(1.5px); }
+  }
+  @keyframes hurt {
+    to { box-shadow: 0 0 18px rgb(255 77 109 / 0.45); }
+  }
+}
+
+html, body { height: 100%; }
+body {
+  background: radial-gradient(1200px 600px at 20% -10%, #14213f 0%, var(--color-bg) 60%);
+  color: var(--color-ink);
+}
+
+/* React Flow под тему игры */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-controls-button-background-color: var(--color-panel2);
+  --xy-controls-button-background-color-hover: var(--color-line);
+  --xy-controls-button-color: var(--color-ink);
+  --xy-controls-button-border-color: var(--color-line);
+  --xy-attribution-background-color: transparent;
+}
+/* Узлы не выделяются и не таскаются, но подсказки и клик по пустым слотам нужны */
+.react-flow__node { cursor: default; pointer-events: all !important; }
+.react-flow__node:hover { z-index: 1000 !important; }
+.react-flow__attribution a { color: var(--color-dim); }
+/* Частицы летят под узлами, но над связями */
+.react-flow__viewport-portal { z-index: 0; }
+.react-flow__nodes { z-index: 1; }
