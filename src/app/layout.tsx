@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Onest, Unbounded } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ variable: '--font-inter', subsets: ['latin', 'cyrillic'] });
-const mono = JetBrains_Mono({ variable: '--font-jb', subsets: ['latin', 'cyrillic'] });
+// Onest — весь интерфейс, Unbounded — только крупные заголовки.
+const onest = Onest({ variable: '--font-onest', subsets: ['latin', 'cyrillic'] });
+const unbounded = Unbounded({ variable: '--font-unbounded', subsets: ['latin', 'cyrillic'] });
 
 export const metadata: Metadata = {
   title: '503 — тренажёр System Design',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${inter.variable} ${mono.variable} h-full antialiased`}>
+    <html lang="ru" className={`${onest.variable} ${unbounded.variable} h-full antialiased`}>
       <body className="h-full overflow-hidden font-sans text-sm">{children}</body>
     </html>
   );

@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jb), ui-monospace, Menlo, monospace;
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-unbounded), var(--font-onest), ui-sans-serif, sans-serif;
 }
 
+/* Светлая мягкая тема: белые скруглённые поверхности и плотные цвета для смысла. */
 @theme {
-  --color-bg: #080c16;
-  --color-stage: #0a101d;
-  --color-panel: #0f1626;
-  --color-panel2: #151e33;
-  --color-node: #121a2d;
-  --color-node-crit: #2a1320;
-  --color-line: #22304d;
-  --color-ink: #dbe4f5;
-  --color-dim: #7f8fb0;
-  --color-accent: #4cc9f0;
-  --color-ok: #3ddc97;
-  --color-warn: #ffd166;
-  --color-bad: #ff4d6d;
-  --color-write: #ffb347;
-  --color-stat: #7aa2ff;
+  --color-bg: #f2f2f8;
+  --color-stage: #ffffff;
+  --color-panel: #ffffff;
+  --color-panel2: #ececf5;
+  --color-node: #ffffff;
+  --color-node-crit: #ffd9dd;
+  --color-line: #dadae8;
+  --color-ink: #17172b;
+  --color-dim: #6a6a85;
+  --color-accent: #5340ff;
+  --color-ok: #0e9f64;
+  --color-warn: #d97a00;
+  --color-bad: #f0364b;
+  --color-write: #d6249f;
+  --color-stat: #1e9bff;
 
   --animate-shake: shake 0.14s linear infinite;
   --animate-hurt: hurt 0.5s ease-in-out infinite alternate;
@@ -30,25 +31,45 @@
     50% { transform: translateX(1.5px); }
   }
   @keyframes hurt {
-    to { box-shadow: 0 0 18px rgb(255 77 109 / 0.45); }
+    to { background-color: var(--color-node-crit); }
   }
+}
+
+/* Числа, которые меняются на глазах: равноширинные цифры, чтобы не прыгали. */
+@utility num {
+  font-variant-numeric: tabular-nums;
 }
 
 html, body { height: 100%; }
 body {
-  background: radial-gradient(1200px 600px at 20% -10%, #14213f 0%, var(--color-bg) 60%);
+  background: var(--color-bg);
   color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* React Flow под тему игры */
 .react-flow {
   --xy-background-color: transparent;
-  --xy-controls-button-background-color: var(--color-panel2);
-  --xy-controls-button-background-color-hover: var(--color-line);
+  --xy-controls-button-background-color: var(--color-panel);
+  --xy-controls-button-background-color-hover: var(--color-panel2);
   --xy-controls-button-color: var(--color-ink);
-  --xy-controls-button-border-color: var(--color-line);
+  --xy-controls-button-border-color: transparent;
+  --xy-controls-box-shadow: 0 2px 12px rgb(23 23 43 / 0.12);
   --xy-attribution-background-color: transparent;
 }
+.react-flow__controls { border-radius: 12px; overflow: hidden; }
 /* Узлы не выделяются и не таскаются, но подсказки и клик по пустым слотам нужны */
 .react-flow__node { cursor: default; pointer-events: all !important; }
 .react-flow__node:hover { z-index: 1000 !important; }
