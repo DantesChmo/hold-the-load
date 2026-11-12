@@ -2,7 +2,7 @@
 import { VH, VW, curvePoint, type LNode } from './layout';
 import type { GameState } from './sim';
 
-export const COLORS = { st: '#7aa2ff', rd: '#3ddc97', wr: '#ffb347', bad: '#ff4d6d' };
+export const COLORS = { st: '#1e9bff', rd: '#0e9f64', wr: '#d6249f', bad: '#f0364b' };
 const CLS = [COLORS.st, COLORS.rd, COLORS.wr];
 /** Плотность пикселей холста относительно координат схемы. */
 export const CANVAS_SCALE = 2;
@@ -86,16 +86,14 @@ export class ParticleSystem {
   draw(ctx: CanvasRenderingContext2D, dt: number) {
     ctx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0);
     ctx.clearRect(0, 0, VW, VH);
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.lineCap = 'round';
+        ctx.lineCap = 'round';
     for (const p of this.parts) {
       const col = CLS[p.cls];
       ctx.strokeStyle = col; ctx.globalAlpha = 0.35; ctx.lineWidth = 2.4;
       ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
       ctx.globalAlpha = 0.95; ctx.fillStyle = col;
-      ctx.beginPath(); ctx.arc(p.x, p.y, 2.3, 0, 6.3); ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x, p.y, 2.8, 0, 6.3); ctx.fill();
     }
-    ctx.globalCompositeOperation = 'source-over';
     for (let i = this.fx.length - 1; i >= 0; i--) {
       const f = this.fx[i];
       f.t += dt / (f.drop ? 0.7 : 0.35);
@@ -109,7 +107,7 @@ export class ParticleSystem {
         ctx.moveTo(x + r, y - r); ctx.lineTo(x - r, y + r); ctx.stroke();
       } else {
         // успех: кольцо расходится вокруг узла
-        ctx.globalAlpha = (1 - f.t) * 0.8; ctx.lineWidth = 1.4;
+        ctx.globalAlpha = (1 - f.t) * 0.3; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.ellipse(f.x, f.y, f.w * 0.5 + f.t * 12, f.h * 0.5 + f.t * 10, 0, 0, 6.3); ctx.stroke();
       }
     }

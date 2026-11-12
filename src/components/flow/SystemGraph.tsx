@@ -18,9 +18,10 @@ const FlowEdgeView = memo(function FlowEdgeView({ data }: EdgeProps<FlowEdge>) {
     <path
       d={curvePath({ x: data.sx, y: data.sy }, { x: data.tx, y: data.ty })}
       fill="none"
-      stroke={data.muted ? '#7f8fb0' : '#4cc9f0'}
-      strokeOpacity={data.alpha}
-      strokeWidth={1.2}
+      stroke={data.muted ? '#a9a9c0' : '#6a6a85'}
+      strokeOpacity={Math.min(1, data.alpha * 2.2)}
+      strokeWidth={1.6}
+      strokeLinecap="round"
     />
   );
 });
@@ -55,7 +56,7 @@ export function SystemGraph({ nodes, edges, canvasRef, onBuy }: Props) {
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       nodeOrigin={[0.5, 0.5]}
-      colorMode="dark"
+      colorMode="light"
       minZoom={0.4}
       maxZoom={2.5}
       nodesDraggable={false}
@@ -65,8 +66,8 @@ export function SystemGraph({ nodes, edges, canvasRef, onBuy }: Props) {
       elementsSelectable={false}
       zoomOnDoubleClick={false}
     >
-      <Background variant={BackgroundVariant.Dots} gap={26} size={1.2} color="#1d2a45" />
-      <Controls position="top-left" showInteractive={false} />
+      <Background variant={BackgroundVariant.Dots} gap={26} size={1.2} color="#dadae8" />
+      <Controls position="bottom-right" showInteractive={false} />
       <ViewportPortal>
         <canvas
           ref={canvasRef}
