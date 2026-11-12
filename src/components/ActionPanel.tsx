@@ -12,11 +12,11 @@ interface Props {
 
 export function ActionPanel({ view, flash, onBuy }: Props) {
   return (
-    <aside className="w-full flex-none overflow-auto border-t border-line bg-panel/60 p-3 lg:w-[290px] lg:border-l lg:border-t-0">
-      <h3 className="mb-2.5 text-xs uppercase tracking-widest text-dim">Достроить систему</h3>
+    <aside className="m-3 flex-none overflow-auto rounded-3xl bg-panel p-2 lg:mb-3 lg:ml-0 lg:mt-0 lg:w-[310px]">
+      <h3 className="px-3 pb-1.5 pt-2.5 font-display text-[15px] font-semibold">Достроить систему</h3>
       {ORDER.map((k, i) => {
         const a = ACTIONS[k], { res, cost, total } = view.actions[k];
-        const count = res.locked ? '🔒' : a.max > 1 ? `${total}/${a.max}` : total ? '✓' : '';
+        const count = res.locked ? 'нет на этом уровне' : a.max > 1 ? `${total}/${a.max}` : total ? '✓' : '';
         return (
           <button
             key={k}
@@ -25,28 +25,29 @@ export function ActionPanel({ view, flash, onBuy }: Props) {
             aria-disabled={!res.ok}
             onClick={() => onBuy(k)}
             className={cn(
-              'mb-2 grid w-full grid-cols-[22px_1fr_auto] items-baseline gap-x-2 gap-y-0.5 rounded-[10px] border bg-panel px-2.5 py-2 text-left transition',
-              res.ok ? 'border-line hover:border-accent active:scale-[.98]' : 'cursor-not-allowed border-line',
-              res.locked && 'opacity-35',
-              flash === k && 'border-ok shadow-[0_0_14px_rgba(61,220,151,.35)]',
+              'grid w-full grid-cols-[26px_1fr_auto] items-baseline gap-x-2 gap-y-0.5 rounded-2xl px-3 py-2.5 text-left transition-colors',
+              res.ok ? 'hover:bg-panel2 active:bg-accent/15' : 'cursor-not-allowed',
+              res.locked && 'opacity-40',
+              flash === k && 'bg-ok/20',
             )}
           >
             <Kbd>{i + 1}</Kbd>
-            <span className={cn('font-semibold', !res.ok && 'opacity-50')}>
+            <span className={cn('text-[14px] font-semibold', !res.ok && 'opacity-55')}>
               {a.name}
-              <em className="ml-1.5 text-xs font-normal not-italic text-dim">{count}</em>
+              <em className="num ml-1.5 text-[13px] font-normal not-italic text-dim">{count}</em>
             </span>
-            <span className={cn('font-mono text-[13px] font-bold', res.ok ? 'text-ok' : 'text-dim')}>
-              {res.locked || res.max ? '' : `$${cost}`}
+            <span className={cn('num rounded-full px-2.5 py-0.5 text-[13px] font-semibold',
+              res.locked || res.max ? 'hidden' : res.ok ? 'bg-accent text-white' : 'bg-panel2 text-dim')}>
+              ${cost}
             </span>
-            <span className={cn('col-span-2 col-start-2 text-xs text-dim', !res.ok && 'opacity-50')}>{a.desc}</span>
+            <span className={cn('col-span-2 col-start-2 text-[13px] leading-snug text-dim', !res.ok && 'opacity-70')}>{a.desc}</span>
             {!res.ok && !res.locked && (
-              <span className="col-span-2 col-start-2 text-[11.5px] text-warn">{res.why}</span>
+              <span className="col-span-2 col-start-2 text-[13px] font-medium text-warn">{res.why}</span>
             )}
           </button>
         );
       })}
-      <p className="text-xs text-dim">
+      <p className="px-3 pb-2 pt-3 text-[13px] leading-relaxed text-dim">
         Клавиши <Kbd>1</Kbd>–<Kbd>7</Kbd> — построить, <Kbd>Пробел</Kbd> — пауза. Схему можно двигать и масштабировать.
       </p>
     </aside>

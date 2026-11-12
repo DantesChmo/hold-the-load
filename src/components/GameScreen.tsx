@@ -132,42 +132,42 @@ export function GameScreen({ levelIdx, onMenu, onRetry, onNext }: Props) {
   return (
     <div className="flex h-full flex-col">
       <Header onLogo={onMenu}>
-        <div className="min-w-0 flex-1 truncate font-semibold">
+        <div className="min-w-0 flex-1 truncate text-[16px] font-semibold">
           {level.endless ? '∞' : levelIdx + 1}. {level.title}
-          <small className="ml-2 font-normal text-dim">{level.teach}</small>
+          <small className="ml-2 text-[13px] font-normal text-dim">{level.teach}</small>
         </div>
         <div className="flex gap-2">
           <Btn active={paused} title="Пробел" onClick={() => phase === 'play' && setPaused((p) => !p)}>
-            {paused ? '▶ Продолжить' : '❚❚ Пауза'}
+            {paused ? 'Продолжить' : 'Пауза'}
           </Btn>
-          <Btn title="Скорость" data-testid="speed" onClick={() => setSpeed((v) => SPEEDS[(SPEEDS.indexOf(v) + 1) % SPEEDS.length])}>
+          <Btn title="Скорость" data-testid="speed" className="num min-w-10 font-semibold" onClick={() => setSpeed((v) => SPEEDS[(SPEEDS.indexOf(v) + 1) % SPEEDS.length])}>
             {speed}×
           </Btn>
           <Btn title="Показывать варианты решения" onClick={toggleHints} className="hidden md:block">
             Подсказки: {hints ? 'вкл' : 'выкл'}
           </Btn>
-          <Btn onClick={onRetry}>↻ Заново</Btn>
+          <Btn onClick={onRetry}>Заново</Btn>
           <Btn onClick={onMenu}>Уровни</Btn>
         </div>
       </Header>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-auto lg:flex-row lg:overflow-hidden">
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col lg:pb-0">
           <Hud view={view} />
-          <div className="relative mx-3 mt-2.5 min-h-[360px] flex-1 overflow-hidden rounded-xl border border-line bg-stage">
+          <div className="relative mx-3 mt-2.5 min-h-[360px] flex-1 overflow-hidden rounded-3xl bg-stage">
             <ReactFlowProvider>
               <SystemGraph nodes={flow.nodes} edges={flow.edges} canvasRef={canvas} onBuy={onBuy} />
             </ReactFlowProvider>
-            <div className="pointer-events-none absolute right-2.5 top-2 flex gap-3 text-[11px] text-dim">
+            <div className="pointer-events-none absolute right-4 top-3.5 flex gap-3.5 text-[13px] text-dim">
               {LEGEND.map(([color, label]) => (
                 <span key={label} className="flex items-center gap-1.5">
-                  <i className={`size-2 rounded-full ${color}`} />{label}
+                  <i className={`size-2.5 rounded-full ${color}`} />{label}
                 </span>
               ))}
             </div>
             {paused && phase === 'play' && (
-              <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded-md border border-warn bg-bg/80 px-2.5 py-0.5 font-mono text-xs font-bold text-warn">
-                ПАУЗА — строить можно
+              <div className="absolute left-1/2 top-3 -translate-x-1/2 rounded-full bg-warn px-4 py-1 text-[13px] font-semibold text-white">
+                Пауза. Строить можно
               </div>
             )}
             <Alerts view={view} hints={hints} onBuy={onBuy} />
@@ -178,7 +178,7 @@ export function GameScreen({ levelIdx, onMenu, onRetry, onNext }: Props) {
       </div>
 
       {toast && (
-        <div role="status" className="fixed bottom-40 left-1/2 z-40 -translate-x-1/2 rounded-lg border border-warn bg-panel2 px-3.5 py-1.5 text-[13px] text-warn">
+        <div role="status" className="fixed bottom-40 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink px-5 py-2 text-[13.5px] font-medium text-white shadow-[0_6px_24px_rgba(23,23,43,.25)]">
           {toast}
         </div>
       )}

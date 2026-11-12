@@ -19,12 +19,12 @@ export function Alerts({ view, hints, onBuy }: { view: View; hints: boolean; onB
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
             className={cn(
-              'rounded-lg border border-l-4 bg-panel/95 px-2.5 py-2 text-[12.5px]',
+              'rounded-2xl border-2 bg-panel px-4 py-3 text-[13.5px] leading-snug shadow-[0_6px_24px_rgba(23,23,43,.14)]',
               x.sev === 'crit' ? 'animate-hurt border-bad' : 'border-warn',
             )}
           >
-            <b className={cn('block text-[13px]', x.sev === 'crit' ? 'text-bad' : 'text-warn')}>
-              {x.sev === 'crit' && '⚠ '}{x.title}
+            <b className={cn('block', x.sev === 'crit' ? 'text-bad' : 'text-warn')}>
+              {x.title}
             </b>
             {x.text}
             {hints && x.fixes.length > 0 && (
@@ -35,7 +35,7 @@ export function Alerts({ view, hints, onBuy }: { view: View; hints: boolean; onB
                     key={k}
                     type="button"
                     onClick={() => onBuy(k)}
-                    className="rounded-md border border-line bg-panel2 px-2 py-0.5 text-xs text-ink transition hover:border-accent"
+                    className="num rounded-full bg-accent px-3 py-1 text-[13px] font-semibold text-white transition-colors hover:bg-ink"
                   >
                     {ACTIONS[k].name} ${view.actions[k].cost}
                   </button>
